@@ -22,7 +22,7 @@
   --obsidian-light: #1e1e2d;
   /* Gold family */
   --gold: #B8860B;
-  --gold-bright: #D4AF37;
+  --gold-binset-inline-end: #D4AF37;
   --gold-dim: #8B6914;
   --gold-glow: rgba(184,134,11,0.4);
   /* Crimson family */
@@ -31,7 +31,7 @@
   --crimson-glow: rgba(255,0,64,0.4);
   /* Teal family */
   --teal: #008080;
-  --teal-bright: #20B2AA;
+  --teal-binset-inline-end: #20B2AA;
   --teal-glow: rgba(0,128,128,0.4);
   /* Cyan */
   --cyan: #00FFFF;
@@ -63,7 +63,7 @@ html, body {
   background: var(--void);
   color: var(--bone);
   font-family: 'Share Tech Mono', monospace;
-  min-height: 100vh;
+  min-block-size: 100vh;
   overflow: hidden;
   font-size: 14px;
 }
@@ -119,8 +119,8 @@ body::before {
   50% { box-shadow: 0 0 20px var(--gold-glow), 0 0 40px rgba(184,134,11,0.1); }
 }
 @keyframes line-pulse {
-  0%, 100% { opacity: 0.5; width: 60%; }
-  50% { opacity: 1; width: 80%; }
+  0%, 100% { opacity: 0.5; inline-size: 60%; }
+  50% { opacity: 1; inline-size: 80%; }
 }
 @keyframes cursor-blink {
   0%, 100% { opacity: 1; }
@@ -220,10 +220,10 @@ body::before {
 
 .cathedral-silhouette {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 45vh;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  block-size: 45vh;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 400'%3E%3Cpath d='M0,400 L0,350 L50,350 L50,200 L100,150 L100,350 L150,350 L150,180 L200,120 L200,350 L250,350 L250,250 L300,200 L300,350 L350,350 L350,100 L400,50 L400,350 L450,350 L450,220 L500,180 L500,350 L550,350 L550,280 L600,250 L600,350 L650,350 L650,150 L700,100 L700,350 L750,350 L750,200 L800,160 L800,350 L850,350 L850,260 L900,220 L900,350 L950,350 L950,180 L1000,130 L1000,350 L1050,350 L1050,240 L1100,200 L1100,350 L1150,350 L1150,160 L1200,120 L1200,400 Z' fill='%230A0A0A'/%3E%3C/svg%3E") bottom center / cover no-repeat;
   opacity: 0.7;
   z-index: 1;
@@ -232,8 +232,8 @@ body::before {
 /* Floating particles */
 .particle {
   position: absolute;
-  width: 2px;
-  height: 2px;
+  inline-size: 2px;
+  block-size: 2px;
   background: var(--gold-bright);
   border-radius: 50%;
   opacity: 0;
@@ -260,11 +260,11 @@ body::before {
 .logo-main::after {
   content: '';
   position: absolute;
-  bottom: -15px;
-  left: 50%;
+  inset-block-end: -15px;
+  inset-inline-start: 50%;
   transform: translateX(-50%);
-  width: 80%;
-  height: 2px;
+  inline-size: 80%;
+  block-size: 2px;
   background: linear-gradient(90deg, transparent, var(--gold), var(--crimson), var(--gold), transparent);
   animation: line-pulse 3s ease-in-out infinite;
 }
@@ -275,7 +275,7 @@ body::before {
   color: var(--crimson);
   letter-spacing: 0.5em;
   text-transform: uppercase;
-  margin-top: 1.5rem;
+  margin-block-start: 1.5rem;
   z-index: 10;
   animation: fade-in-up 2s ease-out 0.5s both;
 }
@@ -284,7 +284,7 @@ body::before {
   font-size: 0.85rem;
   color: rgba(232,224,213,0.5);
   letter-spacing: 0.2em;
-  margin-top: 1rem;
+  margin-block-start: 1rem;
   font-style: italic;
   z-index: 10;
   animation: fade-in-up 2s ease-out 1s both;
@@ -292,9 +292,9 @@ body::before {
 
 /* Mask decoration */
 .mask-decoration {
-  width: 100px;
-  height: 100px;
-  margin-bottom: 2rem;
+  inline-size: 100px;
+  block-size: 100px;
+  margin-block-end: 2rem;
   z-index: 10;
   animation: mask-float 4s ease-in-out infinite, fade-in-up 2s ease-out 0.3s both;
 }
@@ -304,9 +304,9 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  width: 100%;
-  max-width: 400px;
-  margin-top: 3rem;
+  inline-size: 100%;
+  max-inline-size: 400px;
+  margin-block-start: 3rem;
   z-index: 10;
   animation: fade-in-up 2s ease-out 1.2s both;
 }
@@ -323,7 +323,7 @@ body::before {
   text-transform: uppercase;
   letter-spacing: 0.2em;
   transition: all 0.4s ease;
-  text-align: left;
+  text-align: start;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -333,7 +333,7 @@ body::before {
 .menu-btn::before {
   content: '';
   position: absolute;
-  left: 0; top: 0; bottom: 0;
+  left: 0; inset-block-start: 0; inset-block-end: 0;
   width: 3px;
   background: var(--gold);
   transform: scaleY(0);
@@ -2812,24 +2812,6 @@ const Game = (function() {
     isTyping: false,
     typewriterSpeed: 30,
     currentDialogue: null,
-    typewriterTimeout: null,
-
-    // Player resources
-    hp: 100,
-    maxHp: 100,
-    mp: 50,
-    maxMp: 50,
-
-    // Party HP (single source of truth)
-    partyHp: {
-      protagonist: { current: 100, max: 100 },
-      silas:       { current: 80,  max: 80  },
-      magdalene:   { current: 120, max: 120 },
-      orin:        { current: 60,  max: 60  }
-    },
-
-    // Combat buffs
-    combatBuffs: { defenseMod: 1, turnsRemaining: 0 },
 
     // Moral Axes
     honor: 0,
@@ -3125,11 +3107,8 @@ const Game = (function() {
   // ═══════════════════════════════════════════════════════════════
   // SCENE MANAGEMENT
   // ═══════════════════════════════════════════════════════════════
-  const scenes = Array.from(document.querySelectorAll('.scene'));
-  let autoSaveTimer = null;
-
   function showScene(sceneId) {
-    scenes.forEach(s => {
+    document.querySelectorAll('.scene').forEach(s => {
       s.classList.remove('active');
       if (s.id !== 'scene-title') s.style.display = 'none';
     });
@@ -3145,10 +3124,9 @@ const Game = (function() {
     state.prevScene = state.scene;
     state.scene = sceneId;
 
-    // Auto-save on scene transition (debounced)
+    // Auto-save on scene transition
     if (state.settings.autoSave && sceneId === 'game') {
-      clearTimeout(autoSaveTimer);
-      autoSaveTimer = setTimeout(autoSave, 500);
+      autoSave();
     }
   }
 
@@ -3208,6 +3186,10 @@ const Game = (function() {
 
   function showCredits() {
     showScene('credits');
+  }
+
+  function resetToTitle() {
+    returnToTitle();
   }
 
   // ═══════════════════════════════════════════════════════════════
@@ -3385,7 +3367,6 @@ const Game = (function() {
     updateHPDisplay();
     updateCorruptionDisplay();
     updateSocialDisplay();
-    updateResources();
 
     // Transition to game
     document.getElementById('scene-creation').classList.remove('active');
@@ -3406,7 +3387,7 @@ const Game = (function() {
       echotouched:{ vit: 0, syn: 3, frc: 1, nex: 1, vel: 0 }
     };
     const b = bonuses[state.origin] || bonuses.concordat;
-    Object.keys(b).forEach(s => { state.stats[s] = Math.min(20, state.stats[s] + b[s]); });
+    Object.keys(b).forEach(s => { state.stats[s] += b[s]; });
   }
 
   // ═══════════════════════════════════════════════════════════════
@@ -3595,7 +3576,7 @@ const Game = (function() {
       text: 'Final Match: The Undefeated. A former Concordat knight who has never killed. They refuse to. Break their vow and they\'ll be yours. Forfeit and accept exile. Or... convince them.',
       choices: [
         { text: 'Convince them to join. Peace over violence.', tag: 'redemption', tagText: 'Convince',
-          effect: () => { if (state.honor >= 20) { if (!state.party.includes('undefeated')) state.party.push('undefeated'); showNotification('Success!','The Undefeated joins your party!'); modAxis('honor',10); } else { showNotification('Failed','Not enough honor. They refuse.'); } loadDialogue('arena_complete'); } },
+          effect: () => { if (state.honor >= 20) { showNotification('Success!','The Undefeated joins your party!'); modAxis('honor',10); } else { showNotification('Failed','Not enough honor. They refuse.'); } loadDialogue('arena_complete'); } },
         { text: 'Break their vow. Make them kill.', tag: 'betrayal', tagText: 'Break', effect: () => { modStat('corruption',20); addItem({ id:'oathbreaker', name:'Oathbreaker Blade', type:'weapon', rarity:'legendary', icon:'&#x2694;', stats:{atk:40}, desc:'Highest base damage. Lowers all party trust.' }); showNotification('Oathbreaker','You gained the legendary blade. +50 Corruption.'); loadDialogue('arena_complete'); } },
         { text: 'Forfeit. Some principles are worth more.', tag: 'covenant', tagText: 'Forfeit', effect: () => { modAxis('honor',15); showNotification('Exiled','You keep your honor. The tunnels are yours.'); loadDialogue('arena_complete'); } }
       ]
@@ -3667,7 +3648,7 @@ const Game = (function() {
         { text: '"You should have trusted me."', tag: 'redemption', tagText: 'Honor', effect: () => { loadDialogue('silas_betrayal_honor'); } },
         { text: '"I understand. But it can\'t happen again."', tag: 'covenant', tagText: 'Pragmatic', effect: () => { loadDialogue('silas_betrayal_pragmatic'); } },
         { text: '[Echo] "You used me. Now I use you."', tag: 'echo', tagText: 'Echo', requiresCorruption: 30, effect: () => { modStat('corruption',10); modTrust('silas',-20); showNotification('Fear','Silas becomes fearful but obedient.'); } },
-        { text: '"Get out."', tag: 'betrayal', tagText: 'Exile', effect: () => { state.party = state.party.filter(m => m !== 'silas'); const el = document.getElementById('member-silas'); if (el) el.style.display = 'none'; showNotification('Exiled','Silas leaves the party.'); loadDialogue('default_explore'); } }
+        { text: '"Get out."', tag: 'betrayal', tagText: 'Exile', effect: () => { state.party = state.party.filter(m => m !== 'silas'); document.getElementById('member-silas').style.display = 'none'; showNotification('Exiled','Silas leaves the party.'); } }
       ]
     },
     silas_betrayal_honor: {
@@ -3746,12 +3727,6 @@ const Game = (function() {
       return;
     }
 
-    // Cancel any running typewriter
-    if (state.typewriterTimeout) {
-      clearTimeout(state.typewriterTimeout);
-      state.typewriterTimeout = null;
-    }
-
     // Update speaker
     const speakerEl = document.getElementById('dialogueSpeaker');
     const speakerImg = document.getElementById('speakerImg');
@@ -3770,26 +3745,22 @@ const Game = (function() {
     state.isTyping = true;
 
     // Hide combat controls, show dialogue
-    const dialogueBox = document.getElementById('dialogueBox');
-    const combatControls = document.getElementById('combatControls');
-    if (dialogueBox) dialogueBox.style.display = '';
-    if (combatControls) combatControls.style.display = 'none';
+    document.getElementById('dialogueBox').style.display = '';
+    document.getElementById('combatControls').style.display = 'none';
 
     let i = 0;
     function typeChar() {
       if (i < dia.text.length) {
         if (textEl) textEl.textContent += dia.text.charAt(i);
         i++;
-        state.typewriterTimeout = setTimeout(typeChar, state.settings.textSpeed);
+        setTimeout(typeChar, state.settings.textSpeed);
       } else {
         state.isTyping = false;
-        state.typewriterTimeout = null;
         renderChoices(dia.choices);
       }
     }
     typeChar();
-    const dialogueChoices = document.getElementById('dialogueChoices');
-    if (dialogueChoices) dialogueChoices.innerHTML = '';
+    document.getElementById('dialogueChoices').innerHTML = '';
   }
 
   function renderChoices(choices) {
@@ -3799,14 +3770,16 @@ const Game = (function() {
 
     choices.forEach(choice => {
       // Check corruption requirement for Echo choices
-      const requiredCorruption = choice.requiresCorruption ?? 999;
-      if (state.corruption < requiredCorruption) {
+      if (choice.requiresCorruption && state.corruption < choice.requiresCorruption) {
         return; // Skip this choice
       }
 
       const btn = document.createElement('button');
       btn.className = 'choice-btn';
-      if (choice.tag === 'echo') btn.classList.add('hidden-echo', 'visible');
+      if (choice.tag === 'echo') btn.classList.add('hidden-echo');
+      if (choice.tag === 'echo' && state.corruption >= (choice.requiresCorruption || 0)) {
+        btn.classList.add('visible');
+      }
 
       const tagClass = {
         betrayal: 'tag-betrayal', redemption: 'tag-redemption',
@@ -3961,7 +3934,7 @@ const Game = (function() {
     if (!state.inCombat || state.combatTurn !== 'player') return;
 
     const skills = {
-      penitent: { name: 'Penance Shield', effect: () => { state.combatBuffs.defenseMod = 0.6; state.combatBuffs.turnsRemaining = 2; showNotification('Shield','40% damage reduction for 2 turns.'); } },
+      penitent: { name: 'Penance Shield', effect: () => { showNotification('Shield','40% damage reduction for 2 turns.'); } },
       inquisitor: { name: 'Crimson Strike', effect: () => {
         const dmg = Math.floor((20 + state.stats.frc * 3) * 1.5);
         state.currentEnemy.hp = Math.max(0, state.currentEnemy.hp - dmg);
@@ -4014,51 +3987,34 @@ const Game = (function() {
     }
   }
 
-  function renderHeroHP() {
-    const hero = state.partyHp.protagonist;
-    const pct = (hero.current / hero.max) * 100;
-    const hpBar = document.getElementById('p1-hp');
-    const hpText = document.getElementById('p1-hp-text');
-    const combatHpFill = document.getElementById('playerCombatHp');
-    if (hpBar) hpBar.style.width = pct + '%';
-    if (hpText) hpText.textContent = `${hero.current}/${hero.max}`;
-    if (combatHpFill) combatHpFill.style.width = pct + '%';
-  }
-
-  function renderMP() {
-    const mpText = document.getElementById('p1-mp-text');
-    if (mpText) mpText.textContent = `${state.mp}/${state.maxMp}`;
-  }
-
   function enemyTurn(damageMod) {
     if (!state.inCombat || !state.currentEnemy) return;
     damageMod = damageMod || 1;
 
     const baseDmg = state.currentEnemy.dmg;
     const variance = 0.8 + Math.random() * 0.4;
-    let dmg = Math.floor(baseDmg * variance * damageMod * state.combatBuffs.defenseMod);
+    let dmg = Math.floor(baseDmg * variance * damageMod);
 
     // Defense reduction
     const defReduction = state.stats.vit * 0.02;
     dmg = Math.max(1, Math.floor(dmg * (1 - defReduction)));
 
     // Apply damage to protagonist
-    const hero = state.partyHp.protagonist;
-    hero.current = Math.max(0, hero.current - dmg);
-    renderHeroHP();
+    const hpBar = document.getElementById('p1-hp');
+    const hpText = document.getElementById('p1-hp-text');
+    const combatHpFill = document.getElementById('playerCombatHp');
+    const currentHP = parseInt(hpText.textContent.split('/')[0]);
+    const maxHP = parseInt(hpText.textContent.split('/')[1]);
+    const newHP = Math.max(0, currentHP - dmg);
 
-    // Expire defense buff if this was the last turn
-    if (state.combatBuffs.turnsRemaining > 0) {
-      state.combatBuffs.turnsRemaining--;
-      if (state.combatBuffs.turnsRemaining <= 0) {
-        state.combatBuffs.defenseMod = 1;
-      }
-    }
+    hpBar.style.width = (newHP / maxHP * 100) + '%';
+    hpText.textContent = `${newHP}/${maxHP}`;
+    if (combatHpFill) combatHpFill.style.width = (newHP / maxHP * 100) + '%';
 
     showDamage(dmg, 'normal', true);
     addCombatLog(`${state.currentEnemy.name} deals ${dmg} damage!`);
 
-    if (hero.current <= 0) {
+    if (newHP <= 0) {
       endCombat(false);
       return;
     }
@@ -4319,8 +4275,6 @@ const Game = (function() {
   // ═══════════════════════════════════════════════════════════════
   function showNotification(title, text) {
     const area = document.getElementById('notificationArea');
-    if (!area) return;
-    while (area.children.length >= 5) area.removeChild(area.firstChild);
     const notif = document.createElement('div');
     notif.className = 'notification';
     notif.innerHTML = `<div class="notification-title">${title}</div><div class="notification-text">${text}</div>`;
@@ -4334,44 +4288,38 @@ const Game = (function() {
     document.getElementById('contractsVal').textContent = state.contracts;
   }
 
-  function renderCompanionHP() {
-    const mapping = {
-      silas:     { bar: 'silas-hp',     text: 'silas-hp-text'     },
-      magdalene: { bar: 'magdalene-hp', text: 'magdalene-hp-text' },
-      orin:      { bar: 'orin-hp',      text: 'orin-hp-text'      }
-    };
-    Object.entries(mapping).forEach(([member, els]) => {
-      const m = state.partyHp[member];
-      if (!m) return;
-      const bar = document.getElementById(els.bar);
-      const text = document.getElementById(els.text);
-      const pct = (m.current / m.max) * 100;
-      if (bar) bar.style.width = pct + '%';
-      if (text) text.textContent = `${m.current}/${m.max}`;
-    });
-  }
-
   function healParty(amount) {
-    Object.values(state.partyHp).forEach(m => {
-      m.current = Math.min(m.max, m.current + amount);
+    const ids = ['p1-hp', 'silas-hp', 'magdalene-hp', 'orin-hp'];
+    const texts = ['p1-hp-text', 'silas-hp-text', 'magdalene-hp-text', 'orin-hp-text'];
+    const maxHPs = [100 + state.stats.vit * 10, 80, 120, 60];
+
+    ids.forEach((id, i) => {
+      const bar = document.getElementById(id);
+      const text = document.getElementById(texts[i]);
+      if (!bar || !text) return;
+      const current = parseInt(text.textContent.split('/')[0]);
+      const max = parseInt(text.textContent.split('/')[1]) || maxHPs[i];
+      const newHP = Math.min(max, current + amount);
+      bar.style.width = (newHP / max * 100) + '%';
+      text.textContent = `${newHP}/${max}`;
+      // Update combat HP bar for protagonist (index 0)
+      if (i === 0) {
+        const combatHpFill = document.getElementById('playerCombatHp');
+        if (combatHpFill) combatHpFill.style.width = (newHP / max * 100) + '%';
+      }
     });
-    renderHeroHP();
-    renderCompanionHP();
   }
 
   function updateHPDisplay() {
-    state.partyHp.protagonist.max = 100 + state.stats.vit * 10;
-    state.partyHp.protagonist.current = state.partyHp.protagonist.max;
-    state.maxMp = 50 + state.stats.syn * 5;
-    state.mp = state.maxMp;
-
-    renderHeroHP();
-    renderMP();
-    renderCompanionHP();
-
+    const maxHP = 100 + state.stats.vit * 10;
+    document.getElementById('p1-hp-text').textContent = `${maxHP}/${maxHP}`;
+    document.getElementById('p1-mp-text').textContent = `${50 + state.stats.syn * 5}/${50 + state.stats.syn * 5}`;
     document.getElementById('partyLevel1').textContent = `Lv.${state.level}`;
     document.getElementById('chapterLabel').textContent = `Chapter ${state.chapter}`;
     document.getElementById('chapterTitle').textContent = state.chapterTitle;
+    // Update combat player HP bar
+    const combatHpFill = document.getElementById('playerCombatHp');
+    if (combatHpFill) combatHpFill.style.width = '100%';
   }
 
   function updateCorruptionDisplay() {
@@ -4522,36 +4470,26 @@ const Game = (function() {
 
   function renderInventory() {
     const grid = document.getElementById('inventoryGrid');
-    if (!grid) return;
+    grid.innerHTML = '';
 
     const filtered = currentInvFilter === 'all'
       ? state.inventory
       : state.inventory.filter(item => item.type === currentInvFilter);
 
-    // Ensure 48 slots exist (create once, update thereafter)
-    while (grid.children.length < 48) {
-      const slot = document.createElement('div');
-      slot.className = 'inv-slot';
-      grid.appendChild(slot);
-    }
-
+    // Show 48 slots (8x6)
     for (let i = 0; i < 48; i++) {
       const item = filtered[i];
-      const slot = grid.children[i];
-      if (!item) {
-        slot.className = 'inv-slot';
-        slot.innerHTML = '';
-        slot.onclick = null;
-        slot.onmouseenter = null;
-        slot.onmouseleave = null;
-        continue;
+      const slot = document.createElement('div');
+      slot.className = 'inv-slot';
+      if (item) {
+        if (item.equipped) slot.classList.add('equipped');
+        const rarityClass = item.rarity ? `rarity-${item.rarity}` : '';
+        slot.innerHTML = `<span class="${rarityClass}">${item.icon || '?'}</span>${item.count > 1 ? `<span class="item-count">${item.count}</span>` : ''}`;
+        slot.onclick = () => showItemDetail(item);
+        slot.onmouseenter = (e) => showItemTooltip(e, item);
+        slot.onmouseleave = hideItemTooltip;
       }
-      slot.className = 'inv-slot' + (item.equipped ? ' equipped' : '');
-      const rarityClass = item.rarity ? `rarity-${item.rarity}` : '';
-      slot.innerHTML = `<span class="${rarityClass}">${item.icon || '?'}</span>${item.count > 1 ? `<span class="item-count">${item.count}</span>` : ''}`;
-      slot.onclick = () => showItemDetail(item);
-      slot.onmouseenter = (e) => showItemTooltip(e, item);
-      slot.onmouseleave = hideItemTooltip;
+      grid.appendChild(slot);
     }
   }
 
@@ -4616,16 +4554,13 @@ const Game = (function() {
   function equipItem(itemId) {
     const item = state.inventory.find(i => i.id === itemId);
     if (!item) return;
-    state.equipped[item.type] = itemId;
+    if (item.type === 'weapon') state.equipped.weapon = item;
+    if (item.type === 'armor') state.equipped.armor = item;
+    if (item.type === 'accessory') state.equipped.accessory = item;
     state.inventory.forEach(i => { if (i.type === item.type) i.equipped = false; });
     item.equipped = true;
     showNotification('Equipped', `${item.name} equipped.`);
     renderInventory();
-  }
-
-  function getEquippedItem(type) {
-    const id = state.equipped[type];
-    return state.inventory.find(i => i.id === id) || null;
   }
 
   function useItem(itemId) {
@@ -4639,8 +4574,6 @@ const Game = (function() {
       showNotification('Used', `${item.name} restored ${item.effect.hp} HP.`);
     }
     if (item.effect.mp) {
-      state.mp = Math.min(state.maxMp, state.mp + item.effect.mp);
-      renderMP();
       showNotification('Used', `${item.name} restored ${item.effect.mp} MP.`);
     }
 
@@ -4652,8 +4585,6 @@ const Game = (function() {
   function discardItem(itemId) {
     const idx = state.inventory.findIndex(i => i.id === itemId);
     if (idx > -1) {
-      const item = state.inventory[idx];
-      if (state.equipped[item.type] === itemId) state.equipped[item.type] = null;
       state.inventory.splice(idx, 1);
       renderInventory();
       document.getElementById('itemDetailPanel').classList.remove('active');
@@ -4839,10 +4770,7 @@ const Game = (function() {
         endingsSeen: state.endingsSeen
       };
       localStorage.setItem('cos_autosave', JSON.stringify(saveData));
-    } catch(e) {
-      console.error('[AutoSave] Failed:', e);
-      showNotification('Auto-Save Failed', 'Progress could not be saved.');
-    }
+    } catch(e) { /* Silently fail */ }
   }
 
   function exportSave() {
